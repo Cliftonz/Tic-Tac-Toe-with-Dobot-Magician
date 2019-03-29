@@ -5,20 +5,19 @@ import math
 
 
 def mse(image_a, image_b):
-    # the 'Mean Squared Error' between the two images is the
-    # sum of the squared difference between the two images;
+    # the 'Mean Squared Error' between the two images is the sum of the squared difference between the two images;
     # NOTE: the two images must have the same dimension
     err = np.sum((image_a.astype("float") - image_b.astype("float")) ** 2)
     err /= float(image_a.shape[0] * image_a.shape[1])
 
-    # return the MSE, the lower the error, the more "similar"
-    # the two images are
+    # return the MSE, the lower the error, the more "similar" the two images are
+    #
     return err
 
 
-def compare_images(image_a, image_b, title):
-    # compute the mean squared error and structural similarity
-    # index for the images
+def compare_images(image_a, image_b):
+    # compute the mean squared error and structural similarity index for the images
+
     m = mse(image_a, image_b)
     s = ssim(image_a, image_b)
 
@@ -26,11 +25,13 @@ def compare_images(image_a, image_b, title):
 
 
 def find_player_move(compared_value):
+
     largest_m = 0
-    # one is the largest the ssim can be
     smallest_s = 1
+
     for k in range(0, 8):
         if largest_m < compared_value[k][0] and smallest_s > compared_value[k][1]:
+
             largest_m = compared_value[k][0]
             smallest_s = compared_value[k][1]
             position = k + 1
@@ -43,7 +44,7 @@ def set_cells(image):
 
     array = [0 for x in range(9)]
 
-    # image_obj[ y:y+h, x:x+w]
+    # image_obj[y:y+h, x:x+w]
     ###################################
     # Row 1
 
@@ -71,50 +72,21 @@ def set_cells(image):
 
     return array
 
+
 def get_player_move(previous_state, current_state):
 
-    PreviousCells = set_cells(previous_state)
+    previous_cells = set_cells(previous_state)
 
-    CurrentCells = set_cells(current_state)
+    current_cells = set_cells(current_state)
 
-    ComData = [0 for x in range(9)]
-
-    for i in range(0, 9):
-        title = 'Cell ' + str(i)
-        ComData[i] = compare_images(cv2.cvtColor(PreviousCells[i], cv2.COLOR_BGR2GRAY),
-                                    cv2.cvtColor(CurrentCells[i], cv2.COLOR_BGR2GRAY),
-                                    title)
-
-    return find_player_move(ComData)
-
-
-def move_made(previous_state, current_state):
-    PreviousCells = set_cells(previous_state)
-
-    CurrentCells = set_cells(current_state)
-
-    ComData = [0 for x in range(9)]
+    state_to_state_data = [0 for x in range(9)]
 
     for i in range(0, 9):
-        title = 'Cell ' + str(i)
-        ComData[i] = compare_images(cv2.cvtColor(PreviousCells[i], cv2.COLOR_BGR2GRAY),
-                                    cv2.cvtColor(CurrentCells[i], cv2.COLOR_BGR2GRAY),
-                                    title)
 
-    is_player_move_first = move_made_checker(ComData)
+        state_to_state_data[i] = compare_images(cv2.cvtColor(previous_cells[i], cv2.COLOR_BGR2GRAY),
+                                                cv2.cvtColor(current_cells[i], cv2.COLOR_BGR2GRAY))
 
-    return is_player_move_first
-
-# Todo: make better variable names
-def move_made_checker(data):
-
-    movemade = False
-
-    for x in range(0, 8):
-        if data[x][0] > 20 and data[x][1] < .95:
-            movemade = True
-
-    return movemade
+    return find_player_move(state_to_state_data)
 
 
 def camera_overlay(capture):
@@ -154,7 +126,7 @@ def camera_overlay(capture):
                               (10 * (i + k), 0 + 10 * (i + k), 0),
                               inner_thickness)
 
-        #Adding text
+        # Adding text
 
         font = cv2.FONT_HERSHEY_SIMPLEX
         start_of_text = (10, 50)

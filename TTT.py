@@ -31,42 +31,55 @@ def prompt(message):
 
 
 if __name__ == '__main__':
-    # TODO: Initialize camera, local variables, etc
+    # TODO: Initialize camera, local variables, Game State, Dobot etc
     cam = cv2.VideoCapture(0)
 
     VP.camera_overlay(cam)
 
-    # init current state of blank paper
-    flags, current_state = cam.read()
+    play_again = True
 
-    # initialize previous state
-    flags, previous_state = cam.read()
+    while play_again:
 
-    # Start of TTT loop
-    prompt('Ready to start the game? ')
-
-    while True:
-        # Did player make first move?
-        # TODO: Make Dobot first move
-
-        # TODO: Capture current state
+        cont = False
+        while not cont:
+            cont = prompt('Ready to start the game? ')
+            print()
+            
+        # init current state of blank paper
         flags, current_state = cam.read()
 
-        # TODO: Wait 30 seconds or when movement has stopped
+        # initialize previous state
+        flags, previous_state = cam.read()
 
-        # TODO: Get player move
+        # Start of TTT loop
+        current_game = True
+        while current_game:
 
-        # TODO: Update Current state
+            # Did player make first move?
+            # TODO: Make Dobot first move
 
-        # TODO: Search for next best move
+            # TODO: Capture current state
+            previous_state = current_state
+            flags, current_state = cam.read()
 
-        # Todo: If not an end game state , make next move and return to top of game loop
+            # wait 30 seconds for player input or motion has stopped
+            time.sleep(10)
 
-        # TODO: Else end loop
+            # Get player move
+            previous_state = current_state
+            flags, current_state = cam.read()
 
-        # TODO: Play again prompt
+            # Todo: update state
 
-        # TODO: clear internal representation
-        # Todo: go to start
+            VP.get_player_move(previous_state, current_state)
 
-        # Todo: End Game
+
+            # Todo: If not an end game state , make next move and return to top of game loop
+
+            # TODO: Else end loop
+
+            # TODO: Play again prompt
+
+            # TODO: clear internal representation
+
+            # Todo: go to start
