@@ -1,10 +1,8 @@
 
-import numpy as np
-import math
 import cv2
-import time
 import Vision_Processing as VP
 import Motion_Processing as MP
+
 
 def prompt(message):
     # raw_input returns the empty string for "enter"
@@ -43,7 +41,7 @@ if __name__ == '__main__':
         while not cont:
             cont = prompt('Ready to start the game? ')
             print()
-            
+
         # init current state of blank paper
         flags, current_state = cam.read()
 
@@ -62,7 +60,6 @@ if __name__ == '__main__':
             flags, current_state = cam.read()
 
             # wait 30 seconds for player input or motion has stopped
-
             MP.wait_for_player_move(cam)
 
             # Get player move

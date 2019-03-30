@@ -1,7 +1,6 @@
 import datetime
 import imutils
 import cv2
-import time
 
 previous = False
 
@@ -24,7 +23,6 @@ def wait_for_player_move(capture):
     # then break out of loop
     movement = False
 
-    current_time = datetime.now()
     end_time = None
     # loop over the frames of the video
     while True:
@@ -33,10 +31,12 @@ def wait_for_player_move(capture):
             print("No more frames")
             break
 
+        current_time = datetime.datetime.now()
+
         # if movement was detected and then not detected
         # wait 5 seconds to see if there is any more movement
         if has_changed_t2f(movement):
-            end_time = current_time + datetime.timedelta(0,5)
+            end_time = current_time + datetime.timedelta(0, 5)
 
         # Capture frame-by-frame
         ret, frame = capture.read()
