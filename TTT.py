@@ -5,24 +5,27 @@ import Motion_Processing as MP
 
 
 def prompt(message):
+
     # raw_input returns the empty string for "enter"
     yes = {'yes', 'y', 'ye', ''}
     no = {'no', 'n'}
 
     print(message)
 
-    choice = input().lower()
-    if choice in yes:
+    while True:
+        choice = input().lower()
+        if choice in yes:
 
-        answer = True
+            answer = True
+            break
 
-    elif choice in no:
+        elif choice in no:
 
-        answer = False
+            answer = False
+            break
 
-    else:
-
-        print("Please respond with 'yes' or 'no'")
+        else:
+            print("Please respond with 'yes' or 'no'")
 
     return answer
 
@@ -37,10 +40,18 @@ if __name__ == '__main__':
 
     while play_again:
 
-        cont = False
-        while not cont:
-            cont = prompt('Ready to start the game? ')
-            print()
+        first_player = prompt('Will Dobot make the first move? ')
+
+        if first_player is True:
+            # Todo: send signal for Dobot to make x's
+            pass
+        else:
+            # Todo: send signal for Dobot to make circles
+            pass
+
+        print('Do not')
+
+        cont = prompt('Ready to start the game? ')
 
         # init current state of blank paper
         flags, current_state = cam.read()
@@ -52,31 +63,46 @@ if __name__ == '__main__':
         current_game = True
         while current_game:
 
-            # Did player make first move?
-            # TODO: Make Dobot first move
+            if first_player:
+                # Did player make first move?
+                # TODO: Make Dobot first move
 
-            # Capture current state
-            previous_state = current_state
-            flags, current_state = cam.read()
+                # Capture current state
+                previous_state = current_state
+                flags, current_state = cam.read()
 
-            # wait 30 seconds for player input or motion has stopped
-            MP.wait_for_player_move(cam)
+                # wait 30 seconds for player input or motion has stopped
+                MP.wait_for_player_move(cam)
 
-            # Get player move
-            previous_state = current_state
-            flags, current_state = cam.read()
+                # Get player move
+                previous_state = current_state
+                flags, current_state = cam.read()
 
-            # Todo: update state
+                # Todo: update state
 
-            VP.get_player_move(previous_state, current_state)
+                VP.get_player_move(previous_state, current_state)
 
+            else:
 
-            # Todo: If not an end game state , make next move and return to top of game loop
+                # wait 30 seconds for player input or motion has stopped
+                MP.wait_for_player_move(cam)
 
-            # TODO: Else end loop
+                # Get player move
+                previous_state = current_state
+                flags, current_state = cam.read()
 
-            # TODO: Play again prompt
+                # Todo: update state
 
-            # TODO: clear internal representation
+                VP.get_player_move(previous_state, current_state)
 
-            # Todo: go to start
+                # TODO: Make Dobot move
+
+                # Capture current state
+                previous_state = current_state
+                flags, current_state = cam.read()
+
+        # Todo: If end game state, break
+
+    play_again = prompt('Do you want to play again?')
+    # TODO: clear internal representation
+
