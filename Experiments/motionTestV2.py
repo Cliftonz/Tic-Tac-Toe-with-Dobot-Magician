@@ -11,16 +11,19 @@ if __name__ == '__main__':
     # initialize the first frame in the video stream
     firstFrame = None
 
-    min_area = 30
+    # 500 is a good minimum for finding contours
+    min_area = 500
+
+    count = 0
 
     loop = True
     # loop over the frames of the video
     while loop:
         # grab the current frame and initialize the occupied/unoccupied text
-
         if not (cap.grab()):
             print("No more frames")
             break
+
         # Capture frame-by-frame
         ret, frame = cap.read()
 
@@ -35,10 +38,10 @@ if __name__ == '__main__':
         # if the first frame is None, initialize it
         if firstFrame is None:
             firstFrame = gray
+            count = 0
             continue
 
         # compute the absolute difference between the current frame and first frame
-
         frameDelta = cv2.absdiff(firstFrame, gray)
         thresh = cv2.threshold(frameDelta, 25, 255, cv2.THRESH_BINARY)[1]
 
@@ -65,16 +68,15 @@ if __name__ == '__main__':
         cv2.putText(frame, "Board Status: {}".format(text), (10, 20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-        cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"),
-                    (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
-
         # show the frame and record if the user presses a key
         cv2.imshow('video', frame)
 
         cv2.imshow("Thresh", thresh)
 
         cv2.imshow("Frame Delta", frameDelta)
-        
+
+        count += 1
+
         key = cv2.waitKey(1)
 
         # if the `q` key is pressed, break from the lop

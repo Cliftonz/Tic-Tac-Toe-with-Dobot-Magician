@@ -3,9 +3,8 @@ import numpy as np
 import math
 import cv2
 import time
-import sys
 import Vision_Processing as VP
-
+import Motion_Processing as MP
 
 def prompt(message):
     # raw_input returns the empty string for "enter"
@@ -25,7 +24,7 @@ def prompt(message):
 
     else:
 
-        sys.stdout.write("Please respond with 'yes' or 'no'")
+        print("Please respond with 'yes' or 'no'")
 
     return answer
 
@@ -58,12 +57,13 @@ if __name__ == '__main__':
             # Did player make first move?
             # TODO: Make Dobot first move
 
-            # TODO: Capture current state
+            # Capture current state
             previous_state = current_state
             flags, current_state = cam.read()
 
             # wait 30 seconds for player input or motion has stopped
-            time.sleep(10)
+
+            MP.wait_for_player_move(cam)
 
             # Get player move
             previous_state = current_state
