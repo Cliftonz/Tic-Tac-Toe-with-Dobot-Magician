@@ -72,5 +72,5 @@ def wait_for_player_move(capture):
 
             movement = True
 
-        if current_time >= end_time:
+        if current_time.time() >= end_time.time():
             break
