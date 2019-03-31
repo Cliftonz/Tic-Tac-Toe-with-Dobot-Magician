@@ -114,6 +114,7 @@ def dobot_turn():
         x, y = move[0], move[1]
 
     mark_pos(x, y, DOBOT)
+    dobot_moves.append([x, y])
     drawMove(x, y)
 
 

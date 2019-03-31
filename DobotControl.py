@@ -5,117 +5,117 @@ import DobotDll.DobotDllType as dType
 # Same coordinates as Dobot home
 def goHome():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, 172, -120, 50, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, 172, -120, 50, 0, isQueued=1)
 
 
 # Physical instructions to create an 'X' in each individual cell
 def draw02():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][0] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][0] - yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][1] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][1] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][1] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][1] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][0] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][0] - yOS[0], zCoor, 0, isQueued=1)
 
     goHome()
 
 
 def draw12():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][1] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][1] - yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][2] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][2] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][2] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][2] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][1] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][1] - yOS[0], zCoor, 0, isQueued=1)
 
     goHome()
 
 
 def draw22():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][2] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][2] - yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][3] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][3] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][3] + yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[0] - xOS, y2DArr[0][3] + yOS[0], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][2] - yOS[0], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[1] + xOS, y2DArr[1][2] - yOS[0], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw01():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][0] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][0] - yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][0] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][0] - yOS[1], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw11():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] - yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] - yOS[1], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw21():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] - yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][3] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][3] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][3] + yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][3] + yOS[1], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] - yOS[1], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] - yOS[1], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw00():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][0] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][0] - yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][1] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][1] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][1] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][1] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][0] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][0] - yOS[2], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw10():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][1] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][1] - yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][2] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][2] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][2] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][2] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][1] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][1] - yOS[2], zCoor, 0, isQueued=1)
     goHome()
 
 
 def draw20():
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][2] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][2] - yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][3] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][3] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][3] + yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[2] - xOS, y2DArr[2][3] + yOS[2], zCoor, 0, isQueued=1)
 
-    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][2] - yOS[2], zCoor, 0, isQueued=1)[0]
+    dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[3] + xOS, y2DArr[3][2] - yOS[2], zCoor, 0, isQueued=1)
     goHome()
 
 
