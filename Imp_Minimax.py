@@ -4,9 +4,10 @@ from DobotControl_TTT import drawMove
 
 DOBOT = +1
 HUMAN = -1
-board = [ [0, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0], ]
+dobot_moves = []
+board = [[0, 0, 0],
+         [0, 0, 0],
+         [0, 0, 0]]
 
 
 def clear_board():
@@ -35,7 +36,7 @@ def is_end_state(state, player):
         [state[0][1], state[1][1], state[2][1]],
         [state[0][2], state[1][2], state[2][2]],
         [state[0][0], state[1][1], state[2][2]],
-        [state[2][0], state[1][1], state[0][2]] ]
+        [state[2][0], state[1][1], state[0][2]]]
 
     if [player, player, player] in win_positions:
         return True
@@ -116,27 +117,45 @@ def dobot_turn():
     drawMove(x, y)
 
 
-def human_turn():
+def human_turn(x, y):
     depth = len(get_free_pos(board))
     if depth == 0 or test_wins():
         return
 
-    move = -1
+    try:
+        can_move = mark_pos(x, y, HUMAN)
+
+        if not can_move:
+            print("Not a Valid Move Human, Try Again.")
+            print_board(board)
+    except(KeyError, ValueError):
+        print("Not Valid Human, Try Again.")
+        print_board(board)
+
+
+def print_board(state):
+    chars = {
+        +1: 1,
+        -1: -1,
+        0: 0
+    }
+
+    print("\nCurrent State of Board:")
+    for col in state:
+        for val in col:
+            symbol = chars[val]
+            val_str = "| {} |"
+            print(val_str.format(symbol), end="")
+        print("\n----------------")
+
+
+def player_move(index):
     moves = {
         1: [0, 0], 2: [0, 1], 3: [0, 2],
         4: [1, 0], 5: [1, 1], 6: [1, 2],
-        7: [2, 0], 8: [2, 1], 9: [2, 2]
+        7: [2, 0], 8: [2, 1], 9: [2, 2],
     }
 
-
-    while move < 1 or move > 9:
-        try:
-            move = int(input("Choose Available Cell(1 - 9) to Move:"))
-            coords = moves[move]
-            can_move = mark_pos(coords[0], coords[1], HUMAN)
-
-            if not can_move:
-                print("Not a Valid Move, Try Again.")
-                move = -1
-        except(KeyError, ValueError):
-            print("Not Valid, Try Again.")
+    coords = moves[index]
+    if [coords[0], coords[1]] not in dobot_moves:
+        human_turn(coords[0], coords[1])

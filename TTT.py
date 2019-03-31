@@ -32,7 +32,7 @@ def prompt(message):
 
 
 if __name__ == '__main__':
-    # TODO: Initialize camera, local variables, Game State, Dobot etc
+
     cam = cv2.VideoCapture(0)
 
     Vision.camera_overlay(cam)
@@ -75,9 +75,7 @@ if __name__ == '__main__':
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                # Todo: update state
-
-                Vision.get_player_move(previous_state, current_state)
+                Logic.player_move(Vision.get_player_move(previous_state, current_state))
 
                 if Logic.test_wins():
                     break
@@ -90,9 +88,7 @@ if __name__ == '__main__':
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                # Todo: update state
-
-                Vision.get_player_move(previous_state, current_state)
+                Logic.player_move(Vision.get_player_move(previous_state, current_state))
 
                 if Logic.test_wins():
                     break
