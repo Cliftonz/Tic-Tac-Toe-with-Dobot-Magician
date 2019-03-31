@@ -107,8 +107,10 @@ def dobot_turn():
         return
 
     if depth == 9:
-        x = choice([0, 1, 2])
-        y = choice([0, 1, 2])
+        # x = choice([0, 1, 2])
+        # y = choice([0, 1, 2])
+        x = 1
+        y = 1
     else:
         move = min_max(board, depth, DOBOT)
         x, y = move[0], move[1]

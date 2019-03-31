@@ -2,7 +2,7 @@ from skimage.measure import compare_ssim as ssim
 import numpy as np
 import cv2
 import math
-
+import matplotlib.pyplot as plt
 
 def mse(image_a, image_b):
     # the 'Mean Squared Error' between the two images is the sum of the squared difference between the two images;
@@ -20,6 +20,25 @@ def compare_images(image_a, image_b):
 
     m = mse(image_a, image_b)
     s = ssim(image_a, image_b)
+
+    # setup the figure
+    fig = plt.figure()
+    plt.suptitle("MSE: %.2f, SSIM: %.2f" % (m, s))
+
+    # show first image
+    ax = fig.add_subplot(1, 2, 1)
+    cmap = plt.cm.gray
+    plt.imshow(image_a, cmap)
+    plt.axis("off")
+
+    # show the second image
+    ax = fig.add_subplot(1, 2, 2)
+    cmap = plt.cm.gray
+    plt.imshow(image_b, cmap)
+    plt.axis("off")
+
+    # show the images
+    plt.show()
 
     return m, s
 

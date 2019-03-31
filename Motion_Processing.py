@@ -23,7 +23,7 @@ def wait_for_player_move(capture):
     # then break out of loop
     movement = False
 
-    end_time = None
+    end_time = datetime.datetime.now() + datetime.timedelta(0, 1800)
     # loop over the frames of the video
     while True:
         # grab the current frame and initialize the occupied/unoccupied text

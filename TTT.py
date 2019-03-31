@@ -3,7 +3,7 @@ import cv2
 import Vision_Processing as Vision
 import Motion_Processing as Motion
 import Imp_Minimax as Logic
-
+import time
 
 def prompt(message):
 
@@ -60,6 +60,8 @@ if __name__ == '__main__':
             if first_player:
                 # Todo: send signal for Dobot to make x's or circles
                 Logic.dobot_turn()
+
+                time.sleep(2)
 
                 # Capture current state
                 previous_state = current_state
