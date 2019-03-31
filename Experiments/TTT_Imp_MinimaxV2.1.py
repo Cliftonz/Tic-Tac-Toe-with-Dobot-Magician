@@ -1,6 +1,5 @@
 from random import choice
-from DobotControl_TTT import drawMove
-import time
+from Experiments.DobotControl_TTT import drawMove
 
 DOBOT = +1
 HUMAN = -1

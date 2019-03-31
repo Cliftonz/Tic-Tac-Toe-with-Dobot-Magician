@@ -1,6 +1,6 @@
 
 from random import choice
-from DobotControl_TTT import drawMove
+from DobotControl import drawMove
 
 DOBOT = +1
 HUMAN = -1
