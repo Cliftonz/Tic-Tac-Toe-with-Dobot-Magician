@@ -2,7 +2,7 @@
 import cv2
 import Vision_Processing as VP
 import Motion_Processing as MP
-
+import TTT_Imp_Minimax as logic
 
 def prompt(message):
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
             # Todo: send signal for Dobot to make circles
             pass
 
-        print('Do not')
+        print('IMPORTANT - Make sure the game board is clear and nothing is in front of the camera.')
 
         cont = prompt('Ready to start the game? ')
 
@@ -71,6 +71,8 @@ if __name__ == '__main__':
                 previous_state = current_state
                 flags, current_state = cam.read()
 
+                # Todo: If end game state, break
+
                 # wait 30 seconds for player input or motion has stopped
                 MP.wait_for_player_move(cam)
 
@@ -82,6 +84,7 @@ if __name__ == '__main__':
 
                 VP.get_player_move(previous_state, current_state)
 
+                # Todo: If end game state, break
             else:
 
                 # wait 30 seconds for player input or motion has stopped
@@ -95,14 +98,15 @@ if __name__ == '__main__':
 
                 VP.get_player_move(previous_state, current_state)
 
+                # Todo: If end game state, break
+
                 # TODO: Make Dobot move
 
                 # Capture current state
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-        # Todo: If end game state, break
+                # Todo: If end game state, break
 
     play_again = prompt('Do you want to play again?')
     # TODO: clear internal representation
-
