@@ -1,8 +1,9 @@
 
 import cv2
-import Vision_Processing as VP
-import Motion_Processing as MP
-import TTT_Imp_Minimax as logic
+import Vision_Processing as Vision
+import Motion_Processing as Motion
+import Imp_Minimax as Logic
+
 
 def prompt(message):
 
@@ -34,20 +35,13 @@ if __name__ == '__main__':
     # TODO: Initialize camera, local variables, Game State, Dobot etc
     cam = cv2.VideoCapture(0)
 
-    VP.camera_overlay(cam)
+    Vision.camera_overlay(cam)
 
     play_again = True
 
     while play_again:
 
         first_player = prompt('Will Dobot make the first move? ')
-
-        if first_player is True:
-            # Todo: send signal for Dobot to make x's
-            pass
-        else:
-            # Todo: send signal for Dobot to make circles
-            pass
 
         print('IMPORTANT - Make sure the game board is clear and nothing is in front of the camera.')
 
@@ -64,17 +58,18 @@ if __name__ == '__main__':
         while current_game:
 
             if first_player:
-                # Did player make first move?
-                # TODO: Make Dobot first move
+                # Todo: send signal for Dobot to make x's or circles
+                Logic.dobot_turn()
 
                 # Capture current state
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                # Todo: If end game state, break
+                if Logic.test_wins():
+                    break
 
                 # wait 30 seconds for player input or motion has stopped
-                MP.wait_for_player_move(cam)
+                Motion.wait_for_player_move(cam)
 
                 # Get player move
                 previous_state = current_state
@@ -82,13 +77,14 @@ if __name__ == '__main__':
 
                 # Todo: update state
 
-                VP.get_player_move(previous_state, current_state)
+                Vision.get_player_move(previous_state, current_state)
 
-                # Todo: If end game state, break
+                if Logic.test_wins():
+                    break
             else:
 
                 # wait 30 seconds for player input or motion has stopped
-                MP.wait_for_player_move(cam)
+                Motion.wait_for_player_move(cam)
 
                 # Get player move
                 previous_state = current_state
@@ -96,17 +92,20 @@ if __name__ == '__main__':
 
                 # Todo: update state
 
-                VP.get_player_move(previous_state, current_state)
+                Vision.get_player_move(previous_state, current_state)
 
-                # Todo: If end game state, break
+                if Logic.test_wins():
+                    break
 
-                # TODO: Make Dobot move
+                Logic.dobot_turn()
 
                 # Capture current state
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                # Todo: If end game state, break
+                if Logic.test_wins():
+                    break
 
     play_again = prompt('Do you want to play again?')
-    # TODO: clear internal representation
+
+    Logic.clear_board()
