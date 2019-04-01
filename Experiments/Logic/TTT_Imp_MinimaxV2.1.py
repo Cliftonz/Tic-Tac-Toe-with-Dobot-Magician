@@ -1,5 +1,5 @@
 from random import choice
-from Experiments.DobotControl_TTT import drawMove
+from Experiments.Dobot.DobotControl_TTT import drawMove
 
 DOBOT = +1
 HUMAN = -1
