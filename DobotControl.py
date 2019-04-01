@@ -220,9 +220,3 @@ if state == dType.DobotConnect.DobotConnect_NoError:
         for y in range(1, 4):
             y2DArr[x][y] = yTemp
             yTemp -= yStep
-
-    # Start to Execute Command Queued
-    dType.SetQueuedCmdStartExec(api)
-
-    # Stop to Execute Command Queued
-    dType.SetQueuedCmdStopExec(api)
