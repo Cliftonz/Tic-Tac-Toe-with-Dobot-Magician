@@ -11,6 +11,7 @@ def has_changed_t2f(previous, current):
     else:
         return False
 
+
 def wait_for_player_move(capture, show_windows):
 
     # initialize the first frame in the video stream
@@ -44,7 +45,6 @@ def wait_for_player_move(capture, show_windows):
             player_move_ended = True
 
         previous_movement = current_movement
-
 
         # Capture frame-by-frame
         ret, frame = capture.read()
@@ -82,8 +82,6 @@ def wait_for_player_move(capture, show_windows):
                 continue
 
             current_movement = True
-
-            print('C' + str(current_movement))
 
             # compute the bounding box for the contour, draw it on the frame,
             # and update the text
