@@ -79,12 +79,6 @@ if state == dType.DobotConnect.DobotConnect_NoError:
             y2DArr[x][y] = yTemp
             yTemp -= yStep
 
-    # Start to Execute Command Queued
-    dType.SetQueuedCmdStartExec(api)
-
-    # Stop to Execute Command Queued
-    dType.SetQueuedCmdStopExec(api)
-
     # Same coordinates as Dobot home
     def goHome():
 
@@ -224,6 +218,6 @@ if state == dType.DobotConnect.DobotConnect_NoError:
             draw22()
 
     # def end_connection():
-    #     # Disconnect Dobot
-    #     dType.DisconnectDobot(api)
+        # Disconnect Dobot
+    #    dType.DisconnectDobot(api)
 
