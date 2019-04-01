@@ -1,5 +1,5 @@
 
-import DobotDll.DobotDllType as dType
+import DobotDllType as dType
 
 CON_STR = {
     dType.DobotConnect.DobotConnect_NoError: "DobotConnect_NoError",
@@ -79,8 +79,6 @@ if state == dType.DobotConnect.DobotConnect_NoError:
             y2DArr[x][y] = yTemp
             yTemp -= yStep
 
-
-
     # Start to Execute Command Queued
     dType.SetQueuedCmdStartExec(api)
 
@@ -91,7 +89,6 @@ if state == dType.DobotConnect.DobotConnect_NoError:
     def goHome():
 
         dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, 172, -120, 50, 0, isQueued=1)
-
 
     # Physical instructions to create an 'X' in each individual cell
     def draw02():
@@ -146,15 +143,13 @@ if state == dType.DobotConnect.DobotConnect_NoError:
 
     def draw11():
 
-        isQueued = True
+        dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] - yOS[1], zCoor, 0, isQueued=1)
 
-        dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][1] - yOS[1], zCoor, 0, isQueued)
+        dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] + yOS[1], zCoor, 0, isQueued=1)
 
-        dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][2] + yOS[1], zCoor, 0, isQueued)
+        dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] + yOS[1], zCoor, 0, isQueued=1)
 
-        dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] + yOS[1], zCoor, 0, isQueued)
-
-        dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] - yOS[1], zCoor, 0, isQueued)
+        dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] - yOS[1], zCoor, 0, isQueued=1)
         goHome()
 
         # Stop to Execute Command Queued
@@ -228,7 +223,7 @@ if state == dType.DobotConnect.DobotConnect_NoError:
         elif x == 2 and y == 2:
             draw22()
 
+    # def end_connection():
+    #     # Disconnect Dobot
+    #     dType.DisconnectDobot(api)
 
-
-# Disconnect Dobot
-dType.DisconnectDobot(api)

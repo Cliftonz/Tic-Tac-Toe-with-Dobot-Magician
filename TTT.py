@@ -5,6 +5,7 @@ import Motion_Processing as Motion
 import Imp_Minimax as Logic
 import time
 
+
 def prompt(message):
 
     # raw_input returns the empty string for "enter"
@@ -54,14 +55,12 @@ if __name__ == '__main__':
         flags, previous_state = cam.read()
 
         # Start of TTT loop
-        current_game = True
-        while current_game:
+        while True:
 
             if first_player:
                 # Todo: send signal for Dobot to make x's or circles
-                Logic.dobot_turn()
 
-                time.sleep(2)
+                Logic.dobot_turn()
 
                 # Capture current state
                 previous_state = current_state
@@ -104,6 +103,6 @@ if __name__ == '__main__':
                 if Logic.test_wins():
                     break
 
-    play_again = prompt('Do you want to play again?')
+        play_again = prompt('Do you want to play again?')
 
-    Logic.clear_board()
+        Logic.clear_board()
