@@ -68,9 +68,6 @@ def draw11():
     dType.SetPTPCmd(api, dType.PTPMode.PTPMOVLXYZMode, xArr[2] + xOS, y2DArr[2][1] - yOS[1], zCoor, 0, isQueued=1)
     goHome()
 
-    # Stop to Execute Command Queued
-    dType.SetQueuedCmdStopExec(api)
-
 def draw21():
 
     dType.SetPTPCmd(api, dType.PTPMode.PTPJUMPXYZMode, xArr[1] - xOS, y2DArr[1][2] - yOS[1], zCoor, 0, isQueued=1)
