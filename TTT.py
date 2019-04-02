@@ -38,11 +38,13 @@ if __name__ == '__main__':
 
     cam = cv2.VideoCapture(0)
 
-    Vision.camera_overlay(cam)
+
 
     play_again = True
 
     while play_again:
+
+        Vision.camera_overlay(cam)
 
         first_player = prompt('Will Dobot make the first move? ')
 
@@ -59,12 +61,11 @@ if __name__ == '__main__':
         # Start of TTT loop
         while True:
 
-
             if first_player:
                 # Todo: send signal for Dobot to make x's or circles
 
                 Logic.dobot_turn()
-                time.sleep(10)
+                time.sleep(8)
                 # Capture current state
                 previous_state = current_state
                 flags, current_state = cam.read()
@@ -80,9 +81,6 @@ if __name__ == '__main__':
                 flags, current_state = cam.read()
 
                 player_move = Vision.get_player_move(previous_state, current_state)
-
-                if Debug is True:
-                    print(player_move)
 
                 Logic.player_move(player_move)
 

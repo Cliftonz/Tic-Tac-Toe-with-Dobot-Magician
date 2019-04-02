@@ -7,7 +7,7 @@ HUMAN = -1
 dobot_moves = []
 board = [[0, 0, 0],
          [0, 0, 0],
-         [0, 0, 0]]
+         [0, 0, 0], ]
 
 
 def clear_board():
@@ -45,9 +45,11 @@ def is_end_state(state, player):
 
 
 def test_wins():
+    # return is_end_state(board, DOBOT) or is_end_state(board, HUMAN)
     win = False
     if is_end_state(board, DOBOT) is True or is_end_state(board, HUMAN) is True:
         win = True
+
     return win
 
 
@@ -70,7 +72,11 @@ def valid_move(x, y):
 
 
 def mark_pos(x, y, player):
-    board[x][y] = player
+    if valid_move(x, y):
+        board[x][y] = player
+        return True
+    else:
+        return False
 
 
 def min_max(state, depth, player):
@@ -112,9 +118,23 @@ def dobot_turn():
         move = min_max(board, depth, DOBOT)
         x, y = move[0], move[1]
 
-    mark_pos(x, y, DOBOT)
-    dobot_moves.append([x, y])
-    drawMove(x, y)
+    # moves = {
+    #     [0, 0]: [2, 0], [0, 1]: [1, 0], [0, 2]: [0, 0],
+    #     [1, 0]: [2, 1], [1, 1]: [1, 1], [1, 2]: [0, 1],
+    #     [2, 0]: [2, 2], [2, 1]: [1, 2], [2, 2]: [0, 2]
+    # }
+
+    moves = [
+            [[2, 0],  [1, 0],  [0, 0]],
+            [[2, 1],  [1, 1],  [0, 1]],
+            [[2, 2],  [1, 2],  [0, 2]]
+            ]
+
+    coords = moves[x][y]
+
+    mark_pos(coords[0], coords[1], DOBOT)
+    dobot_moves.append(coords)
+    drawMove(coords[0], coords[1])
 
 
 def human_turn(x, y):
@@ -123,8 +143,11 @@ def human_turn(x, y):
         return
 
     try:
-        mark_pos(x, y, HUMAN)
+        can_move = mark_pos(x, y, HUMAN)
 
+        if not can_move:
+            print("Not a Valid Move Human, Try Again.")
+            print_board(board)
     except(KeyError, ValueError):
         print("Not Valid Human, Try Again.")
         print_board(board)
@@ -150,9 +173,10 @@ def player_move(index):
     moves = {
         1: [0, 0], 2: [0, 1], 3: [0, 2],
         4: [1, 0], 5: [1, 1], 6: [1, 2],
-        7: [2, 0], 8: [2, 1], 9: [2, 2],
+        7: [2, 0], 8: [2, 1], 9: [2, 2]
     }
 
     coords = moves[index]
+    # Not working
     if [coords[0], coords[1]] not in dobot_moves:
         human_turn(coords[0], coords[1])
