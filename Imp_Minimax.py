@@ -56,9 +56,9 @@ def test_wins():
 def get_free_pos(state):
     free_moves = []
 
-    for x, col in enumerate(state):
-        for y, val in enumerate(col):
-            if val == 0:
+    for x in range(0, 3):
+        for y in range(0, 3):
+            if state[x][y] == 0:
                 free_moves.append([x, y])
 
     return free_moves
@@ -72,11 +72,11 @@ def valid_move(x, y):
 
 
 def mark_pos(x, y, player):
-    if valid_move(x, y):
-        board[x][y] = player
-        return True
-    else:
-        return False
+    # if valid_move(x, y):
+    board[x][y] = player
+    #    return True
+    # else:
+     #   return False
 
 
 def min_max(state, depth, player):
@@ -92,7 +92,8 @@ def min_max(state, depth, player):
     for val in get_free_pos(state):
         x, y = val[0], val[1]
         state[x][y] = player
-        score = min_max(state, depth - 1, (player * -1))
+        next_state = state.copy()
+        score = min_max(next_state, depth - 1, (player * -1))
         state[x][y] = 0
         score[0], score[1] = x, y
 
@@ -115,7 +116,8 @@ def dobot_turn():
         x = choice([0, 1, 2])
         y = choice([0, 1, 2])
     else:
-        move = min_max(board, depth, DOBOT)
+        current_board = board.copy()
+        move = min_max(current_board, depth, DOBOT)
         x, y = move[0], move[1]
 
     # moves = {
@@ -177,6 +179,5 @@ def player_move(index):
     }
 
     coords = moves[index]
-    # Not working
     if [coords[0], coords[1]] not in dobot_moves:
         human_turn(coords[0], coords[1])
