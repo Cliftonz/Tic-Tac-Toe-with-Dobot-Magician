@@ -7,7 +7,7 @@ HUMAN = -1
 dobot_moves = []
 board = [[0, 0, 0],
          [0, 0, 0],
-         [0, 0, 0]]
+         [0, 0, 0], ]
 
 
 def clear_board():
@@ -45,8 +45,12 @@ def is_end_state(state, player):
 
 
 def test_wins():
-    return is_end_state(board, DOBOT) or is_end_state(board, HUMAN)
+    # return is_end_state(board, DOBOT) or is_end_state(board, HUMAN)
+    win = False
+    if is_end_state(board, DOBOT) == True or is_end_state(board, HUMAN) == True:
+        win = True
 
+    return win
 
 def get_free_pos(state):
     free_moves = []
@@ -113,7 +117,15 @@ def dobot_turn():
         move = min_max(board, depth, DOBOT)
         x, y = move[0], move[1]
 
-    mark_pos(x, y, DOBOT)
+    moves = {
+        [0, 0]: [2, 0], [0, 1]: [1, 0], [0, 2]: [0, 0],
+        [1, 0]: [2, 1], [1, 1]: [1, 1], [1, 2]: [0, 1],
+        [2, 0]: [2, 2], [2, 1]: [1, 2], [2, 2]: [0, 2]
+    }
+
+    coords = moves[[x, y]]
+
+    mark_pos(coords[0], coords[1], DOBOT)
     dobot_moves.append([x, y])
     drawMove(x, y)
 
@@ -152,9 +164,9 @@ def print_board(state):
 
 def player_move(index):
     moves = {
-        1: [0, 0], 2: [0, 1], 3: [0, 2],
-        4: [1, 0], 5: [1, 1], 6: [1, 2],
-        7: [2, 0], 8: [2, 1], 9: [2, 2],
+        1: [2, 0], 2: [1, 0], 3: [0, 0],
+        4: [2, 1], 5: [1, 1], 6: [0, 1],
+        7:[2, 2], 8:[1, 2], 9:[0, 2]
     }
 
     coords = moves[index]
