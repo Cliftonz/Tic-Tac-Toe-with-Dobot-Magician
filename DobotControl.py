@@ -152,68 +152,68 @@ api = dType.load()
 state = dType.ConnectDobot(api, "", 115200)[0]
 print("Connect status:", CON_STR[state])
 
-if state == dType.DobotConnect.DobotConnect_NoError:
+#if state == dType.DobotConnect.DobotConnect_NoError:
 
-    # Clean Command Queued
-    dType.SetQueuedCmdClear(api)
+# Clean Command Queued
+dType.SetQueuedCmdClear(api)
 
-    # Async Motion Params Setting
-    dType.SetHOMEParams(api, 172, -120, 50, 0, isQueued=1)
-    dType.SetPTPJointParams(api, 200, 200, 200, 200, 200, 200, 200, 200, isQueued=1)
-    dType.SetPTPCommonParams(api, 100, 100, isQueued=1)
-    dType.SetPTPJumpParams(api, 10, 100, isQueued=1)
+# Async Motion Params Setting
+dType.SetHOMEParams(api, 172, -120, 50, 0, isQueued=1)
+dType.SetPTPJointParams(api, 200, 200, 200, 200, 200, 200, 200, 200, isQueued=1)
+dType.SetPTPCommonParams(api, 100, 100, isQueued=1)
+dType.SetPTPJumpParams(api, 10, 100, isQueued=1)
 
-    # Async Home
-    dType.SetHOMECmd(api, temp=0, isQueued=1)
+# Async Home
+dType.SetHOMECmd(api, temp=0, isQueued=1)
 
-    # rough estimates of the Game Board Corner Coordinates based on 4.5 inches away from dobot side
-    xMax = 308
-    xMin = 195
-    yArr = [56.86, -56.93, -58.09, 54.73]
-    zCoor = -59
-    _OS = 12  # number of divisions per side of GB to find offset for 'X'
+# rough estimates of the Game Board Corner Coordinates based on 4.5 inches away from dobot side
+xMax = 308
+xMin = 195
+yArr = [56.86, -56.93, -58.09, 54.73]
+zCoor = -59
+_OS = 12  # number of divisions per side of GB to find offset for 'X'
 
-    # Calculating/storing x-values
-    xArr = [xMax, 0, 0, xMin]
-    xDiff = xMax - xMin
-    xStep = xDiff / 3
-    xOS = xDiff / _OS  # for the markings of the x-offset from each gridline
-    xTemp = xMax - xStep
-    for x in range(1, 4):
-        xArr[x] = xTemp
-        xTemp -= xStep
+# Calculating/storing x-values
+xArr = [xMax, 0, 0, xMin]
+xDiff = xMax - xMin
+xStep = xDiff / 3
+xOS = xDiff / _OS  # for the markings of the x-offset from each gridline
+xTemp = xMax - xStep
+for x in range(1, 4):
+    xArr[x] = xTemp
+    xTemp -= xStep
 
-    # Recording each y-coord vertex(16) in a 2DList
-    y2DArr = [[56.86, 0, 0, -56.93], [0, 0, 0, 0], [0, 0, 0, 0], [54.73, 0, 0, -58.09]]
+# Recording each y-coord vertex(16) in a 2DList
+y2DArr = [[56.86, 0, 0, -56.93], [0, 0, 0, 0], [0, 0, 0, 0], [54.73, 0, 0, -58.09]]
 
-    # A->D and B->C y-values
-    for i in range(0, 2):
-        first = None
-        last = None
+# A->D and B->C y-values
+for i in range(0, 2):
+    first = None
+    last = None
+    if i == 0:
+        first = yArr[0]
+        last = yArr[3]
+    if i == 1:
+        first = yArr[1]
+        last = yArr[2]
+    yDiff = first - last
+    yStep = yDiff / 3
+    yTemp = first - yStep
+    for x in range(1, 3):
         if i == 0:
-            first = yArr[0]
-            last = yArr[3]
+            y2DArr[x][0] = yTemp
         if i == 1:
-            first = yArr[1]
-            last = yArr[2]
-        yDiff = first - last
-        yStep = yDiff / 3
-        yTemp = first - yStep
-        for x in range(1, 3):
-            if i == 0:
-                y2DArr[x][0] = yTemp
-            if i == 1:
-                y2DArr[x][3] = yTemp
-            yTemp -= yStep
+            y2DArr[x][3] = yTemp
+        yTemp -= yStep
 
-    # Fills out the interior of the board, by each x-level
-    yOS = [0, 0, 0, 0]  # for the markings of the y-offset from each gridline
-    for x in range(0, 4):
-        yfirst = y2DArr[x][0]
-        yDiff = yfirst - y2DArr[x][3]
-        yStep = yDiff / 3
-        yOS[x] = yDiff / _OS
-        yTemp = yfirst - yStep
-        for y in range(1, 4):
-            y2DArr[x][y] = yTemp
-            yTemp -= yStep
+# Fills out the interior of the board, by each x-level
+yOS = [0, 0, 0, 0]  # for the markings of the y-offset from each gridline
+for x in range(0, 4):
+    yfirst = y2DArr[x][0]
+    yDiff = yfirst - y2DArr[x][3]
+    yStep = yDiff / 3
+    yOS[x] = yDiff / _OS
+    yTemp = yfirst - yStep
+    for y in range(1, 4):
+        y2DArr[x][y] = yTemp
+        yTemp -= yStep

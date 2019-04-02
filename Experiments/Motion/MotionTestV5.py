@@ -84,8 +84,6 @@ def wait_for_player_move(capture, show_windows):
 
             current_movement = True
 
-            print('C' + str(current_movement))
-
             # compute the bounding box for the contour, draw it on the frame,
             # and update the text
             (x, y, w, h) = cv2.boundingRect(c)

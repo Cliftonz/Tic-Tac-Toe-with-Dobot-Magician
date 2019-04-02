@@ -11,8 +11,8 @@ board = [[0, 0, 0],
 
 
 def clear_board():
-    for x, col in enumerate(board):
-        for y in enumerate(col):
+    for x in range(0, 3):
+        for y in range(0, 3):
             board[x][y] = 0
 
 
@@ -45,7 +45,10 @@ def is_end_state(state, player):
 
 
 def test_wins():
-    return is_end_state(board, DOBOT) or is_end_state(board, HUMAN)
+    win = False
+    if is_end_state(board, DOBOT) is True or is_end_state(board, HUMAN) is True:
+        win = True
+    return win
 
 
 def get_free_pos(state):
@@ -67,11 +70,7 @@ def valid_move(x, y):
 
 
 def mark_pos(x, y, player):
-    if valid_move(x, y):
-        board[x][y] = player
-        return True
-    else:
-        return False
+    board[x][y] = player
 
 
 def min_max(state, depth, player):
@@ -124,11 +123,8 @@ def human_turn(x, y):
         return
 
     try:
-        can_move = mark_pos(x, y, HUMAN)
+        mark_pos(x, y, HUMAN)
 
-        if not can_move:
-            print("Not a Valid Move Human, Try Again.")
-            print_board(board)
     except(KeyError, ValueError):
         print("Not Valid Human, Try Again.")
         print_board(board)

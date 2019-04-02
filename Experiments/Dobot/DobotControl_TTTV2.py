@@ -1,8 +1,4 @@
-import threading
 import DobotDllType as dType
-import random
-from pynput import keyboard
-from pynput.keyboard import KeyCode
 
 CON_STR = {
     dType.DobotConnect.DobotConnect_NoError:  "DobotConnect_NoError",
@@ -243,5 +239,5 @@ if (state == dType.DobotConnect.DobotConnect_NoError):
     #Stop to Execute Command Queued
     #dType.SetQueuedCmdStopExec(api)
 
-#Disconnect Dobot
-dType.DisconnectDobot(api)
+# #Disconnect Dobot
+# dType.DisconnectDobot(api)
