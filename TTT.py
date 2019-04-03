@@ -38,8 +38,6 @@ if __name__ == '__main__':
 
     cam = cv2.VideoCapture(0)
 
-
-
     play_again = True
 
     while play_again:
