@@ -99,10 +99,10 @@ def min_max(state, depth, player):
 
         if player == DOBOT:
             if score[2] > best[2]:
-                best = score
+                best = score.copy()
         else:
             if score[2] < best[2]:
-                best = score
+                best = score.copy()
 
     return best
 
