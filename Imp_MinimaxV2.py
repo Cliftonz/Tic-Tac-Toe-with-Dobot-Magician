@@ -213,6 +213,7 @@ def dobot_turn():
 
     mark_pos(coords[0], coords[1], DOBOT)
     dobot_moves.append(coords)
+    print_board(board)
     drawMove(coords[0], coords[1])
 
 
