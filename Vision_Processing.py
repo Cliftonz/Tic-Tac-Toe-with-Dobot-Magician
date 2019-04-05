@@ -72,6 +72,10 @@ def get_player_move(previous_state, current_state):
         state_to_state_data[i] = compare_images(cv2.cvtColor(previous_cells[i], cv2.COLOR_BGR2GRAY),
                                                 cv2.cvtColor(current_cells[i], cv2.COLOR_BGR2GRAY))
 
+    cell = find_player_move(state_to_state_data)
+
+    print("Players move is: " + str(cell))
+
     return find_player_move(state_to_state_data)
 
 

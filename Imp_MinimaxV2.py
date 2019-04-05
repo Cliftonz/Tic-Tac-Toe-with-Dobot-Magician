@@ -249,6 +249,7 @@ def player_move(index):
     }
 
     coords = moves[index]
+
     if [coords[0], coords[1]] not in dobot_moves:
         human_turn(coords[0], coords[1])
 

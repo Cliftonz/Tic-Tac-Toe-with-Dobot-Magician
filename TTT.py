@@ -66,7 +66,7 @@ if __name__ == '__main__':
                 Logic.dobot_turn()
                 time.sleep(8)
                 # Capture current state
-                previous_state = copy.deepcopy(current_state)
+                previous_state = current_state
                 flags, current_state = cam.read()
 
                 if Logic.test_wins() is True or Logic.test_draw() is True:
@@ -77,7 +77,7 @@ if __name__ == '__main__':
                 Motion.wait_for_player_move(cam, Debug)
 
                 # Get player move
-                previous_state = copy.deepcopy(current_state)
+                previous_state = current_state
                 flags, current_state = cam.read()
 
                 player_move = Vision.get_player_move(previous_state, current_state)
@@ -93,7 +93,7 @@ if __name__ == '__main__':
                 Motion.wait_for_player_move(cam)
 
                 # Get player move
-                previous_state = copy.deepcopy(current_state)
+                previous_state = current_state
                 flags, current_state = cam.read()
 
                 Logic.player_move(Vision.get_player_move(previous_state, current_state))
@@ -105,7 +105,7 @@ if __name__ == '__main__':
                 Logic.dobot_turn()
 
                 # Capture current state
-                previous_state = copy.deepcopy(current_state)
+                previous_state = current_state
                 flags, current_state = cam.read()
 
                 if Logic.test_wins() is True or Logic.test_draw() is True:
