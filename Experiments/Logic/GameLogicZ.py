@@ -1,6 +1,5 @@
-
 from random import choice
-from DobotControl import drawMove
+import copy
 
 DOBOT = +1
 HUMAN = -1
@@ -16,7 +15,16 @@ def clear_board():
             board[x][y] = 0
 
 
+def test_draw():
+    draw = False
+    if len(get_free_pos(board)) == 0 and test_wins() == False:
+        draw = True
+
+    return draw
+
+
 def get_board(state):
+
     if is_end_state(state, DOBOT):
         score = +1
     elif is_end_state(state, HUMAN):
@@ -71,12 +79,27 @@ def valid_move(x, y):
         return False
 
 
+def temp_state_valid_move(x, y, state):
+    if [x, y] in get_free_pos(state):
+        return True
+    else:
+        return False
+
+
 def mark_pos(x, y, player):
     # if valid_move(x, y):
     board[x][y] = player
     #    return True
     # else:
-     #   return False
+    #   return False
+
+
+def mark_temp_board_pos(x, y, player, state):
+    # if valid_move(x, y):
+    state[x][y] = player
+    #    return True
+    # else:
+    #   return False
 
 
 def min_max(state, depth, player):
@@ -92,19 +115,72 @@ def min_max(state, depth, player):
     for val in get_free_pos(state):
         x, y = val[0], val[1]
         state[x][y] = player
-        next_state = state.copy()
+        next_state = copy.deepcopy(state)
         score = min_max(next_state, depth - 1, (player * -1))
         state[x][y] = 0
         score[0], score[1] = x, y
 
         if player == DOBOT:
             if score[2] > best[2]:
-                best = score.copy()
+                best = copy.deepcopy(score)
         else:
             if score[2] < best[2]:
-                best = score.copy()
+                best = copy.deepcopy(score)
 
     return best
+
+
+def dobot_win_next_turn(state):
+    stop = False
+    # find if dobot will win next turn
+    for x in range(0, 3):
+        if stop is True:
+            break
+        for y in range(0, 3):
+            current_board = copy.deepcopy(state)
+            if temp_state_valid_move(x, y, current_board):
+                mark_temp_board_pos(x, y, DOBOT, current_board)
+                if is_end_state(current_board, DOBOT):
+                    win = (x, y, True)
+                    stop = True
+                    break
+                else:
+                    win = (x, y, False)
+    return win
+
+
+def player_win_next_turn(state):
+    stop = False
+    # find if player will win next turn and block
+    for x in range(0, 3):
+        if stop is True:
+            break
+        for y in range(0, 3):
+            current_board = copy.deepcopy(state)
+            if temp_state_valid_move(x, y, current_board):
+                mark_temp_board_pos(x, y, HUMAN, current_board)
+                if is_end_state(current_board, HUMAN):
+                    win = (x, y, True)
+                    stop = True
+                    break
+                else:
+                    win = (x, y, False)
+    return win
+
+
+def imediate_win(state):
+
+    move = dobot_win_next_turn(state)
+
+    if move[2] is True:
+        return move
+
+    move = player_win_next_turn(state)
+
+    if move[2] is True:
+        return move
+
+    return move
 
 
 def dobot_turn():
@@ -115,16 +191,16 @@ def dobot_turn():
     if depth == 9:
         x = choice([0, 1, 2])
         y = choice([0, 1, 2])
+    elif depth <= 6:
+        move = imediate_win(copy.deepcopy(board))
+        if move[2] is False:
+            current_board = copy.deepcopy(board)
+            move = min_max(current_board, depth, DOBOT)
+        x, y = move[0], move[1]
     else:
-        current_board = board.copy()
+        current_board = copy.deepcopy(board)
         move = min_max(current_board, depth, DOBOT)
         x, y = move[0], move[1]
-
-    # moves = {
-    #     [0, 0]: [2, 0], [0, 1]: [1, 0], [0, 2]: [0, 0],
-    #     [1, 0]: [2, 1], [1, 1]: [1, 1], [1, 2]: [0, 1],
-    #     [2, 0]: [2, 2], [2, 1]: [1, 2], [2, 2]: [0, 2]
-    # }
 
     moves = [
             [[2, 0],  [1, 0],  [0, 0]],
@@ -134,9 +210,11 @@ def dobot_turn():
 
     coords = moves[x][y]
 
-    mark_pos(coords[0], coords[1], DOBOT)
-    dobot_moves.append(coords)
-    drawMove(coords[0], coords[1])
+    mark_pos(x, y, DOBOT)
+    pos = x, y
+    dobot_moves.append(pos)
+    # in actual implementation draw coords[0], coords[1]
+    print_board(board)
 
 
 def human_turn(x, y):
@@ -181,3 +259,5 @@ def player_move(index):
     coords = moves[index]
     if [coords[0], coords[1]] not in dobot_moves:
         human_turn(coords[0], coords[1])
+
+    print_board(board)

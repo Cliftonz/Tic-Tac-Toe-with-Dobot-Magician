@@ -1,4 +1,5 @@
-import Game_Logic as Logic
+#import Game_Logic as Logic
+from Experiments.Logic import GameLogicZ as Logic
 
 
 def prompt(message):
@@ -47,7 +48,7 @@ if __name__ == '__main__':
                 Logic.dobot_turn()
                 #time.sleep(8)
                 # Capture current state
-                if Logic.test_wins() is True or Logic.test_draw() == True:
+                if Logic.test_wins() is True or Logic.test_draw() is True:
                     print("\t--DOBOT WINS--")
                     break
 
@@ -55,7 +56,7 @@ if __name__ == '__main__':
 
                 Logic.player_move(player_move)
 
-                if Logic.test_wins() is True or Logic.test_draw() == True:
+                if Logic.test_wins() is True or Logic.test_draw() is True:
                     print("\t--HUMAN WINS--")
                     break
             else:
