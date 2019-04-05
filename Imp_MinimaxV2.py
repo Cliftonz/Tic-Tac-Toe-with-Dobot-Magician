@@ -55,7 +55,6 @@ def is_end_state(state, player):
 
 
 def test_wins():
-    # return is_end_state(board, DOBOT) or is_end_state(board, HUMAN)
     win = False
     if is_end_state(board, DOBOT) is True or is_end_state(board, HUMAN) is True:
         win = True
@@ -170,7 +169,7 @@ def player_win_next_turn(state):
     return win
 
 
-def imediate_win(state):
+def immediate_win(state):
 
     move = dobot_win_next_turn(state)
 
@@ -194,7 +193,7 @@ def dobot_turn():
         x = choice([0, 1, 2])
         y = choice([0, 1, 2])
     elif depth <= 6:
-        move = imediate_win(copy.deepcopy(board))
+        move = immediate_win(copy.deepcopy(board))
         if move[2] is False:
             current_board = copy.deepcopy(board)
             move = min_max(current_board, depth, DOBOT)
@@ -223,15 +222,7 @@ def human_turn(x, y):
     if depth == 0 or test_wins():
         return
 
-    try:
-        can_move = mark_pos(x, y, HUMAN)
-
-        if not can_move:
-            print("Not a Valid Move Human, Try Again.")
-            print_board(board)
-    except(KeyError, ValueError):
-        print("Not Valid Human, Try Again.")
-        print_board(board)
+    mark_pos(x, y, HUMAN)
 
 
 def print_board(state):
