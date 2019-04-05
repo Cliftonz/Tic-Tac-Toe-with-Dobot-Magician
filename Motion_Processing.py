@@ -40,9 +40,10 @@ def wait_for_player_move(capture, show_windows):
 
         # if movement was detected and then not detected
         # wait 5 seconds to see if there is any more movement
-        if has_changed_t2f(previous_movement, current_movement) and player_move_ended is False:
-            end_time = current_time + datetime.timedelta(0, 2)
-            player_move_ended = True
+        # if has_changed_t2f(previous_movement, current_movement) and player_move_ended is False:
+        if has_changed_t2f(previous_movement, current_movement):
+            end_time = current_time + datetime.timedelta(0, 3)
+            # player_move_ended = True
 
         previous_movement = current_movement
 
