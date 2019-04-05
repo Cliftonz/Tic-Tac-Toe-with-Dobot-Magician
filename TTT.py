@@ -69,8 +69,11 @@ if __name__ == '__main__':
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
+                if Logic.test_wins() is True:
                     print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
                 # wait 30 seconds for player input or motion has stopped
@@ -84,8 +87,11 @@ if __name__ == '__main__':
 
                 Logic.player_move(player_move)
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
-                    print("\t--HUMAN WINS--")
+                if Logic.test_wins() is True:
+                    print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
             else:
 
@@ -98,8 +104,11 @@ if __name__ == '__main__':
 
                 Logic.player_move(Vision.get_player_move(previous_state, current_state))
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
-                    print("\t--HUMAN WINS--")
+                if Logic.test_wins() is True:
+                    print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
                 Logic.dobot_turn()
@@ -108,8 +117,11 @@ if __name__ == '__main__':
                 previous_state = current_state
                 flags, current_state = cam.read()
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
+                if Logic.test_wins() is True:
                     print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
         play_again = prompt('Do you want to play again?')

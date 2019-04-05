@@ -48,30 +48,42 @@ if __name__ == '__main__':
                 Logic.dobot_turn()
                 #time.sleep(8)
                 # Capture current state
-                if Logic.test_wins() is True or Logic.test_draw() is True:
+                if Logic.test_wins() is True:
                     print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
                 player_move = int(input("Choose Available Cell(1 - 9) to Move:"))
 
                 Logic.player_move(player_move)
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
-                    print("\t--HUMAN WINS--")
+                if Logic.test_wins() is True:
+                    print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
             else:
                 player_move = int(input("Choose Available Cell(1 - 9) to Move:"))
                 
                 Logic.player_move(player_move)
 
-                if Logic.test_wins() is True or Logic.test_draw() is True:
-                    print("\t--HUMAN WINS--")
+                if Logic.test_wins() is True:
+                    print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
                 Logic.dobot_turn()
-                
-                if Logic.test_wins() is True or Logic.test_draw() is True:
+
+                if Logic.test_wins() is True:
                     print("\t--DOBOT WINS--")
+                    break
+                elif Logic.test_draw() is True:
+                    print("\t--Tie--")
                     break
 
         play_again = prompt('Do you want to play again?')
