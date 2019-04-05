@@ -25,9 +25,9 @@ def wait_for_player_move(capture, show_windows):
     previous_movement = False
     current_movement = False
 
-    player_move_ended = False
+    end_time = datetime.datetime.now() + datetime.timedelta(0, 1200)
 
-    end_time = datetime.datetime.now() + datetime.timedelta(0, 1800)
+    emergency_end_time = datetime.datetime.now() + datetime.timedelta(0, 1800)
 
     # loop over the frames of the video
     while True:
@@ -43,7 +43,6 @@ def wait_for_player_move(capture, show_windows):
         # if has_changed_t2f(previous_movement, current_movement) and player_move_ended is False:
         if has_changed_t2f(previous_movement, current_movement):
             end_time = current_time + datetime.timedelta(0, 3)
-            # player_move_ended = True
 
         previous_movement = current_movement
 
@@ -108,6 +107,6 @@ def wait_for_player_move(capture, show_windows):
             if key == ord("q") or key == 13:
                 break
 
-        if current_time.time() >= end_time.time():
+        if current_time.time() >= end_time.time() or current_time.time() >= emergency_end_time.time():
             cv2.destroyAllWindows()
             break
