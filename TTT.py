@@ -104,7 +104,7 @@ if __name__ == '__main__':
             else:
 
                 # wait 30 seconds for player input or motion has stopped
-                Motion.wait_for_player_move(cam)
+                Motion.wait_for_player_move(cam, Debug)
 
                 # Get player move
                 previous_state = current_state[:]
@@ -117,7 +117,7 @@ if __name__ == '__main__':
                 Logic.player_move(player_move, Debug, f)
 
                 if Logic.test_wins() is True:
-                    print("\t--DOBOT WINS--")
+                    print("\t--HUMAN WINS--")
                     break
                 if Logic.test_draw() is True:
                     print("\t--Tie--")

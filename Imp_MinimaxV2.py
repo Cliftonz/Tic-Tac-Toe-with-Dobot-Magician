@@ -196,9 +196,13 @@ def dobot_turn(debug, file):
     if depth == 0 or test_wins():
         return
 
-    if depth == 9:
-        x = choice([0, 1, 2])
-        y = choice([0, 1, 2])
+    if depth == 9 or depth == 8:
+        while True:
+            x = choice([0, 1, 2])
+            y = choice([0, 1, 2])
+            if (x, y) in get_free_pos(board):
+                break
+
     elif depth <= 6:
         move = immediate_win(copy.deepcopy(board))
         if move[2] is False:
