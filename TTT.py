@@ -34,7 +34,7 @@ def prompt(message):
 
 if __name__ == '__main__':
 
-    Debug = True
+    Debug = False
 
     f = open('OfficalTestData/testData.text', 'a')
 

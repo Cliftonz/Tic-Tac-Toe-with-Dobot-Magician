@@ -200,7 +200,7 @@ def dobot_turn(debug, file):
         while True:
             x = choice([0, 1, 2])
             y = choice([0, 1, 2])
-            if (x, y) in get_free_pos(board):
+            if valid_move(x, y) is True:
                 break
 
     elif depth <= 6:
