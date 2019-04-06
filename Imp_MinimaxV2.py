@@ -95,6 +95,13 @@ def mark_pos(x, y, player):
         return False
 
 
+def mark_player_pos(x, y, player):
+    # if valid_move(x, y):
+    board[x][y] = player
+    #     return True
+    # else:
+    #     return False
+
 def mark_temp_board_pos(x, y, player, state):
     # if valid_move(x, y):
     state[x][y] = player
@@ -216,7 +223,7 @@ def human_turn(x, y):
     if depth == 0 or test_wins():
         return
 
-    mark_pos(x, y, HUMAN)
+    mark_player_pos(x, y, HUMAN)
 
 
 def print_board(state):
