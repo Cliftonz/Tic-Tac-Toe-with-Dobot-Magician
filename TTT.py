@@ -36,11 +36,18 @@ if __name__ == '__main__':
 
     Debug = True
 
+    f = open('OfficalTestData/testData.text', 'a')
+
     cam = cv2.VideoCapture(0)
 
     play_again = True
 
+    game_number = 0
     while play_again:
+        if Debug is True:
+            game_number += 1
+
+            f.write(str(game_number))
 
         Vision.camera_overlay(cam)
 
@@ -62,7 +69,7 @@ if __name__ == '__main__':
             if first_player:
                 # Todo: send signal for Dobot to make x's or circles
 
-                Logic.dobot_turn()
+                Logic.dobot_turn(Debug, f)
                 time.sleep(8)
                 # Capture current state
                 previous_state = current_state[:]
@@ -80,9 +87,11 @@ if __name__ == '__main__':
                 previous_state = current_state[:]
                 flags, current_state = cam.read()
 
-                player_move = Vision.get_player_move(previous_state, current_state)
+                player_move = Vision.get_player_move(previous_state, current_state, Debug, f)
 
-                Logic.player_move(player_move)
+                print("The player's move was: " + str(player_move))
+
+                Logic.player_move(player_move, Debug, f)
 
                 if Logic.test_wins() is True:
                     break
@@ -117,4 +126,6 @@ if __name__ == '__main__':
 
         play_again = prompt('Do you want to play again?')
 
-    Logic.clear_board()
+        Logic.clear_board()
+    if Debug is True:
+        f.close()

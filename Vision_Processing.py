@@ -59,7 +59,7 @@ def set_cells(image):
     return array
 
 
-def get_player_move(previous_state, current_state):
+def get_player_move(previous_state, current_state, debug, file):
 
     previous_cells = set_cells(previous_state)
 
@@ -71,6 +71,22 @@ def get_player_move(previous_state, current_state):
 
         state_to_state_data[i] = compare_images(cv2.cvtColor(previous_cells[i], cv2.COLOR_BGR2GRAY),
                                                 cv2.cvtColor(current_cells[i], cv2.COLOR_BGR2GRAY))
+
+    if debug is True:
+
+        image = [0 for x in range(9)]
+
+        for i in range(0, 9):
+            image[i] = np.hstack((previous_cells[i], current_cells[i]))
+
+            image[i] = cv2.resize(image[i], (550, 250))
+
+            cv2.putText(image[i], "Cell: {} mse: {} simm: {}".format(str(i),
+                                                                     state_to_state_data[i][0],
+                                                                     state_to_state_data[i][1]),
+                        (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+        # file.write(find_player_move(state_to_state_data))
 
     return find_player_move(state_to_state_data)
 

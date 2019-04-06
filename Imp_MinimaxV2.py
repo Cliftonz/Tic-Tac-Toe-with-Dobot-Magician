@@ -184,7 +184,7 @@ def immediate_win(state):
     return move
 
 
-def dobot_turn():
+def dobot_turn(debug, file):
     depth = len(get_free_pos(board))
     if depth == 0 or test_wins():
         return
@@ -203,25 +203,11 @@ def dobot_turn():
         move = min_max(current_board, depth, DOBOT)
         x, y = move[0], move[1]
 
-    # moves = [
-    #         [[2, 0],  [1, 0],  [0, 0]],
-    #         [[2, 1],  [1, 1],  [0, 1]],
-    #         [[2, 2],  [1, 2],  [0, 2]]
-    #         ]
-
-    moves = [
-        [[0, 2], [1, 2], [2, 2]],
-        [[0, 1], [1, 1], [2, 1]],
-        [[0, 0], [1, 0], [2, 0]]
-    ]
-
-    coords = moves[x][y]
-
     mark_pos(x, y, DOBOT)
-    #mark_pos(coords[0], coords[1], DOBOT)
-    #dobot_moves.append(coords)
     dobot_moves.append((x, y))
     print_board(board)
+    # if debug is True:
+    #     print_board_file(board, file)
     drawMove(x, y)
 
 
@@ -249,7 +235,7 @@ def print_board(state):
         print("\n----------------")
 
 
-def player_move(index):
+def player_move(index, debug, file):
     moves = {
         1: [0, 0], 2: [0, 1], 3: [0, 2],
         4: [1, 0], 5: [1, 1], 6: [1, 2],
@@ -262,3 +248,22 @@ def player_move(index):
         human_turn(coords[0], coords[1])
 
     print_board(board)
+
+    # if debug is True:
+    #     print_board_file(board, file)
+
+
+def print_board_file(state, file):
+    chars = {
+        +1: 1,
+        -1: -1,
+        0: 0
+    }
+
+    print("\nCurrent State of Board:")
+    for col in state:
+        for val in col:
+            symbol = chars[val]
+            val_str = "| {} |"
+            file.write(val_str.format(symbol))
+        print("\n----------------")

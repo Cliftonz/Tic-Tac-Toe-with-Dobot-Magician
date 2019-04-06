@@ -1,5 +1,5 @@
 #import Game_Logic as Logic
-from Experiments.Logic import GameLogicZ as Logic
+from TestCode.Logic import GameLogicZ as Logic
 
 
 def prompt(message):
