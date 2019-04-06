@@ -64,7 +64,7 @@ def set_cells(image):
     return array
 
 
-def get_player_move(previous_state, current_state, cam, turn, debug):
+def get_player_move(previous_state, current_state, cam, debug):
 
     previous_cells = set_cells(previous_state)
 
@@ -85,11 +85,9 @@ def get_player_move(previous_state, current_state, cam, turn, debug):
         for i in range(0, 9):
             image[i] = np.hstack((previous_cells[i], current_cells[i]))
 
-            image[i] = cv2.resize(image[i], (600, 300))
+            image[i] = cv2.resize(image[i], (550, 250))
 
-            cv2.putText(image[i], "Cell: {} mse: {} simm: {}".format(str(i),state_to_state_data[0], state_to_state_data[1]), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-
-
+            cv2.putText(image[i], "Cell: {} mse: {} simm: {}".format(str(i), state_to_state_data[i][0], state_to_state_data[i][1]), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
         while True:
             # grab the current frame and initialize the occupied/unoccupied text
@@ -132,4 +130,4 @@ if __name__ == '__main__':
 
     flags, current_state = cam.read()
 
-    print("The cell changed is: " + str(get_player_move(previous_state, current_state, cam, 1, True)))
+    print("The cell changed is: " + str(get_player_move(previous_state, current_state, cam, True)))

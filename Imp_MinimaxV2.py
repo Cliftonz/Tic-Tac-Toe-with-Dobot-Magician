@@ -88,11 +88,11 @@ def temp_state_valid_move(x, y, state):
 
 
 def mark_pos(x, y, player):
-    # if valid_move(x, y):
-    board[x][y] = player
-    #    return True
-    # else:
-    #   return False
+    if valid_move(x, y):
+        board[x][y] = player
+        return True
+    else:
+        return False
 
 
 def mark_temp_board_pos(x, y, player, state):
@@ -109,7 +109,7 @@ def min_max(state, depth, player):
     else:
         best = [-1, -1, 100]
 
-    if depth == 0 or test_wins():
+    if depth == 0 or test_wins() is True:
         score = get_board(state)
         return [-1, -1, score]
 
@@ -123,10 +123,10 @@ def min_max(state, depth, player):
 
         if player == DOBOT:
             if score[2] > best[2]:
-                best = copy.deepcopy(score)
+                best = score
         else:
             if score[2] < best[2]:
-                best = copy.deepcopy(score)
+                best = score
 
     return best
 
@@ -203,18 +203,26 @@ def dobot_turn():
         move = min_max(current_board, depth, DOBOT)
         x, y = move[0], move[1]
 
+    # moves = [
+    #         [[2, 0],  [1, 0],  [0, 0]],
+    #         [[2, 1],  [1, 1],  [0, 1]],
+    #         [[2, 2],  [1, 2],  [0, 2]]
+    #         ]
+
     moves = [
-            [[2, 0],  [1, 0],  [0, 0]],
-            [[2, 1],  [1, 1],  [0, 1]],
-            [[2, 2],  [1, 2],  [0, 2]]
-            ]
+        [[0, 2], [1, 2], [2, 2]],
+        [[0, 1], [1, 1], [2, 1]],
+        [[0, 0], [1, 0], [2, 0]]
+    ]
 
     coords = moves[x][y]
 
-    mark_pos(coords[0], coords[1], DOBOT)
-    dobot_moves.append(coords)
+    mark_pos(x, y, DOBOT)
+    #mark_pos(coords[0], coords[1], DOBOT)
+    #dobot_moves.append(coords)
+    dobot_moves.append((x, y))
     print_board(board)
-    drawMove(coords[0], coords[1])
+    drawMove(x, y)
 
 
 def human_turn(x, y):

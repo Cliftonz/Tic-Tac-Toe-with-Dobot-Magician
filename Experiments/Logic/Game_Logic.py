@@ -219,10 +219,9 @@ def human_turn(index):
 
         if not can_move:
             print("Not a Valid Move Human, Try Again.")
-            #print_board(board)
+
     except(KeyError, ValueError):
         print("Not Valid Human, Try Again.")
-        #print_board(board)
 
     print_board(board)
 

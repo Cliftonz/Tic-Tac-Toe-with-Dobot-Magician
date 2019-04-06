@@ -25,9 +25,9 @@ def wait_for_player_move(capture, show_windows):
     previous_movement = False
     current_movement = False
 
-    end_time = datetime.datetime.now() + datetime.timedelta(0, 1200)
+    end_time = datetime.datetime.now() + datetime.timedelta(0, 30)
 
-    emergency_end_time = datetime.datetime.now() + datetime.timedelta(0, 1800)
+    emergency_end_time = datetime.datetime.now() + datetime.timedelta(0, 30)
 
     # loop over the frames of the video
     while True:
@@ -92,6 +92,11 @@ def wait_for_player_move(capture, show_windows):
         if show_windows is True:
             # draw the text and timestamp on the frame
             cv2.putText(frame, "Board Status: {}".format(text), (10, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+            time_left = end_time - current_time
+
+            cv2.putText(frame, "Time Left: {}".format(time_left), (10, 60),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
             # show the frame and record if the user presses a key

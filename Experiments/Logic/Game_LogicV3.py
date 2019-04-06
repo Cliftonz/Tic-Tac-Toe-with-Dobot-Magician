@@ -1,3 +1,5 @@
+
+
 from random import choice
 import copy
 
@@ -99,32 +101,32 @@ def mark_temp_board_pos(index, player, state):
         return False
 
 
-# def min_max(state, depth, player):
-#     if player == DOBOT:
-#         best = [-1, -1, -100]
-#     else:
-#         best = [-1, -1, 100]
-#
-#     if depth == 0 or test_wins():
-#         score = get_board(state)
-#         return [-1, -1, score]
-#
-#     for val in get_free_pos(state):
-#         x, y = val[0], val[1]
-#         state[x][y] = player
-#         next_state = copy.deepcopy(state)
-#         score = min_max(next_state, depth - 1, (player * -1))
-#         state[x][y] = 0
-#         score[0], score[1] = x, y
-#
-#         if player == DOBOT:
-#             if score[2] > best[2]:
-#                 best = copy.deepcopy(score)
-#         else:
-#             if score[2] < best[2]:
-#                 best = copy.deepcopy(score)
-#
-#     return best
+def min_max(state, depth, player):
+    if player == DOBOT:
+        best = [-1, -1, -100]
+    else:
+        best = [-1, -1, 100]
+
+    if depth == 0 or test_wins():
+        score = get_board(state)
+        return [-1, -1, score]
+
+    for val in get_free_pos(state):
+        x, y = val[0], val[1]
+        state[x][y] = player
+        next_state = copy.deepcopy(state)
+        score = min_max(next_state, depth - 1, (player * -1))
+        state[x][y] = 0
+        score[0], score[1] = x, y
+
+        if player == DOBOT:
+            if score[2] > best[2]:
+                best = copy.deepcopy(score)
+        else:
+            if score[2] < best[2]:
+                best = copy.deepcopy(score)
+
+    return best
 
 
 def dobot_win_next_turn(state):
