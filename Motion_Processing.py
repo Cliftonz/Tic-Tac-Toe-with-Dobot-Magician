@@ -18,7 +18,7 @@ def wait_for_player_move(capture, show_windows):
     first_frame = None
 
     # 500 is a good minimum for finding contours
-    min_area = 650
+    min_area = 700
 
     # If motion has been detect wait 5 second after motion ends
     # then break out of loop
