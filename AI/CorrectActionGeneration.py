@@ -1,29 +1,6 @@
-
-def main():
-    # Start with a blank board
-
-    # Get the best starting move
-    # -- output current state -> next best state
-
-    # from the best starting move, create an array of possible oppenant move
-
-    # find the best move for each oppenant move 
-
-    # foreach oppentant move get the next best state
-
-    # repeat for each best state
-
-    # note make sure there are no duplicates in the output
-    # (save to a datastructure, check, then output at the end?)
-    print("test")
-
-
-
-
-# This is the MinMax Algorithum that I will use to generate the best move
-from DobotControl import drawMove
 from random import choice
 import copy
+import csv
 
 DOBOT = +1
 HUMAN = -1
@@ -31,6 +8,105 @@ dobot_moves = []
 board = [[0, 0, 0],
          [0, 0, 0],
          [0, 0, 0], ]
+
+Visited = []
+
+def GenStatesAndValue(state, depth, player):
+    # check to make sure position doesnt already exist in current states, an end state, or a tie, if so skip
+    if depth == 0 or test_win(state) is True or state in Visited:
+        return None
+
+    States = []
+
+    if player == DOBOT:
+        best = [-1, -1, -100]
+    else:
+        best = [-1, -1, 100]
+
+    # forthis state, test all combinations and return the best possible value this state
+    for val in get_free_pos(state):
+        # Generate new state from valid positions
+        x, y = val[0], val[1]
+        state[x][y] = player
+        next_state = copy.deepcopy(state)
+        state[x][y] = 0
+
+        # If the state only has one opening find it and return it
+        if get_free_pos(state) == 1:
+            # find blank position and return
+            for x in range(0, 3):
+                for y in range(0, 3):
+                    if state[x][y] == 0:
+                        States.append((state, x * 3 + y))
+        else:
+            score = min_max(next_state, depth - 1, (player * -1))
+
+            if player == DOBOT:
+                if score[2] > best[2]:
+                    best = score
+            else:
+                if score[2] < best[2]:
+                    best = score
+
+            value = best[0] * 3 + best[1]
+
+            # add best move and current state to the return and return it
+            States.append((next_state, value))
+
+            # Get moves based off this position
+            lower_states = GenStatesAndValue(next_state, depth - 1, (player * -1))
+            if lower_states is not None:
+                States.extend(lower_states)
+
+    return States
+
+    # Redo
+    # for val in get_free_pos(state):
+    #     x, y = val[0], val[1]
+    #     state[x][y] = player
+    #     next_state = copy.deepcopy(state)
+    #     state[x][y] = 0
+    #     # Call GenStatesandValues again for next state
+    #     ret = GenStatesAndValue(next_state, depth - 1, (player * -1))
+    # 
+    #     # if it is none the next_state was a terminal state thus we dont want it
+    #     if ret is not None:
+    #         if len(get_free_pos(next_state)) != 0:
+    #             # Get best move
+    #             score = min_max(next_state, depth - 1, (player * -1))
+    #
+    #             if player == DOBOT:
+    #                 if score[2] > best[2]:
+    #                     best = score
+    #             else:
+    #                 if score[2] < best[2]:
+    #                     best = score
+    #
+    #             value = best[0] * 3 + best[1]
+    #
+    #             # add best move and current state to the return and return it
+    #             States.append((next_state, value))
+
+
+
+
+def main():
+    # Start with a blank board
+    tboard = [[0, 0, 0],
+              [0, 0, 0],
+              [0, 0, 0], ]
+
+    # Generate all valid positions for Dobot and human
+    states = [GenStatesAndValue(tboard, 9, DOBOT), GenStatesAndValue(tboard, 9, HUMAN)]
+
+    # note make sure there are no duplicates in the output
+    with open('employee_file.csv', mode='w') as dataset:
+        employee_writer = csv.writer(dataset, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        for row in states:
+            tmp = row[0].flatten()
+            tmp.append(row[1])
+            dataset.writerow(tmp)
 
 
 def clear_board():
@@ -41,7 +117,7 @@ def clear_board():
 
 def test_draw():
     draw = False
-    if len(get_free_pos(board)) == 0 and test_wins() == False:
+    if len(get_free_pos(board)) == 0 and False == test_wins():
         draw = True
 
     return draw
@@ -79,6 +155,14 @@ def is_end_state(state, player):
 def test_wins():
     win = False
     if is_end_state(board, DOBOT) is True or is_end_state(board, HUMAN) is True:
+        win = True
+
+    return win
+
+
+def test_win(state):
+    win = False
+    if is_end_state(state, DOBOT) is True or is_end_state(state, HUMAN) is True:
         win = True
 
     return win
@@ -242,7 +326,7 @@ def dobot_turn(debug, file):
     print_board(board)
     # if debug is True:
     #     print_board_file(board, file)
-    drawMove(x, y)
+    #drawMove(x, y)
 
 
 def human_turn(x, y):
@@ -301,3 +385,8 @@ def print_board_file(state, file):
             val_str = "| {} |"
             file.write(val_str.format(symbol))
         print("\n----------------")
+
+
+if __name__ == "__main__":
+    main()
+
